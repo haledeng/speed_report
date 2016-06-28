@@ -26,4 +26,4 @@ npm run dist
 
 
 ### running tests
-Clone the whole project, open 'test/base/index.html' with brower.
+Clone the whole project, open `test/base/index.html` with brower.
