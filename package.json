@@ -1,0 +1,31 @@
+{
+  "name": "speed_report",
+  "version": "1.0.0",
+  "description": "speed report",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/",
+    "dist": "coffee make dist || node make.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haledeng/speed_report.git"
+  },
+  "keywords": [
+    "speed",
+    "report"
+  ],
+  "author": "haledeng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haledeng/speed_report/issues"
+  },
+  "homepage": "https://github.com/haledeng/speed_report#readme",
+  "dependencies": {
+    "shelljs": "^0.7.0",
+    "uglify-js": "^2.6.4"
+  }
+}
