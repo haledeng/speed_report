@@ -33,7 +33,6 @@ var SPEED_REPORT = (function(win) {
 	 * @return {object}      [description]
 	 */
 	var extend = function(dist, src) {
-		// if (!isObj(dist)) return {};
 		if (!isObj(src)) return dist;
 		for (var prop in src) {
 			if (src.hasOwnProperty(prop)) {
@@ -119,10 +118,12 @@ var SPEED_REPORT = (function(win) {
 	report.report = function(point) {
 		var timing = {};
 		if (defaultConf.includeTiming) {
-			timing = performance.timing || {}
+			timing = window.performance.timing || {};
 		}
 		timing = filterTiming(timing);
 		timing = extend(timing, point);
+		// prevent cache
+		timing._ = +new Date();
 		var queryString = join(timing, '&');
 		var url = addQuery2Url(defaultConf.url, queryString);
 		new Image().src = url;
@@ -131,7 +132,3 @@ var SPEED_REPORT = (function(win) {
 
 	return report;
 })(window);
-
-if (typeof module !== 'undefined' && module.exports) {
-	module.exports = SPEED_REPORT;
-}

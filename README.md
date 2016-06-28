@@ -11,7 +11,7 @@ SPEED_REPORT.init({
 });
 
 // report data, request the config url
-SPEED_REPORT.report({	
+SPEED_REPORT.report({
 	domStart: '',
 	jsStart: ''
 });
@@ -21,6 +21,20 @@ SPEED_REPORT.report({
 You will have to install Node.js.
 ```
 npm i
+npm run dist
+```
+
+##### build with loader
+build file with amd, cmd or commonjs loader.
+```
+// on MacOS
+// replace amd with cmd or commonjs
+npm i
+loader='amd' npm run dist
+
+// on windows
+npm i
+set loader=amd
 npm run dist
 ```
 

@@ -16,7 +16,7 @@ var fsize = function(file){
 	return fs.statSync(file).size;
 }
 
-var format_number = function(size, precision){	
+var format_number = function(size, precision){
 	var precision = precision || 1;
 	var factor = Math.pow(10, precision);
 	var decimal = Math.round(size * factor) % factor;
@@ -27,19 +27,36 @@ var report_size = function(file){
  	echo(file + ': ' + format_number(fsize(file) / 1024) + ' KB');
 }
 
+
+var tpl = {
+	amd: 'define(function(){\r\n{{content}};\r\nreturn SPEED_REPORT;\r\n})',
+	cmd: 'defind(function(require, exports, module){\r\n{{content}}\r\n;return SPEED_REPORT;\r\n})',
+	commonjs: '{{content}};\r\nreturn SPEED_REPORT;'
+};
+
+target.wrap = function(content) {
+	var loader = env['loader'] || '';
+	loader = loader.toLowerCase();
+	if (loader && tpl[loader]) {
+		content = tpl[loader].replace(/\{\{content\}\}/, content);
+	}
+	return content;
+};
+
 target.build = function() {
 	cd(__dirname);
 	mkdir('-p', 'dist');
 	var dist = cat(src);
+	dist = target.wrap(dist);
 	dist.to(destPath);
 	report_size(destPath);
 }
 
 target.minify = function() {
-	minify(src).to(destPathMin);
+	minify(destPath).to(destPathMin);
 }
 
-target.dist = function(){	
+target.dist = function(){
 	target.build();
 	target.minify();
 	report_size(destPathMin);
