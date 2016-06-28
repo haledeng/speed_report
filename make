@@ -1,37 +1,46 @@
 require('shelljs/make');
-fs = require('fs');
+var fs = require('fs');
 
-src = 'src/index.js'
-destPath = 'dist/speed_report.js';
-destPathMin = 'dist/speed_report.min.js'
+var src = 'src/index.js'
+var destPath = 'dist/speed_report.js';
+var destPathMin = 'dist/speed_report.min.js'
 
-minify = (src) ->
+var minify = function(src) {
 	uglify = require('uglify-js')
-	result = uglify.minify([src]);
-	return result.code
+	var result = uglify.minify([src]);
+	return result.code;
+}
 
 
-fsize = (file) ->
-	fs.statSync(file).size
+var fsize = function(file){
+	return fs.statSync(file).size;
+}
 
-format_number = (size, precision = 1) ->
-  factor = Math.pow(10, precision)
-  decimal = Math.round(size * factor) % factor
-  parseInt(size) + "." + decimal
+var format_number = function(size, precision){	
+	var precision = precision || 1;
+	var factor = Math.pow(10, precision);
+	var decimal = Math.round(size * factor) % factor;
+	return parseInt(size) + "." + decimal;
+}
 
-report_size = (file) ->
-  echo "#{file}: #{format_number(fsize(file) / 1024)} KB"
+var report_size = function(file){
+ 	echo(file + ': ' + format_number(fsize(file) / 1024) + ' KB');
+}
 
-target.build = ->
-	cd __dirname;
-	mkdir '-p', 'dist';
-	dist = cat(src);
+target.build = function() {
+	cd(__dirname);
+	mkdir('-p', 'dist');
+	var dist = cat(src);
 	dist.to(destPath);
+	report_size(destPath);
+}
 
-target.minify = ->
+target.minify = function() {
 	minify(src).to(destPathMin);
+}
 
-target.dist = -> 
+target.dist = function(){	
 	target.build();
 	target.minify();
 	report_size(destPathMin);
+}

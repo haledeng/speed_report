@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha test/",
-    "dist": "coffee make dist || node make.js"
+    "dist": "node make dist"
   },
   "repository": {
     "type": "git",
