@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>speed report test</title>
+	<link rel="stylesheet" href="../css/mocha.css">
+</head>
+<body>
+	<div id="mocha"></div>
+	<script src="../lib/expect.js"></script>
+	<script src="../lib/mocha.js"></script>
+	<script src="../../src/index.js"></script>
+	<script>
+		mocha.setup('bdd');
+	</script>
+	<script src="./case.js"></script>
+	<script>
+		mocha.run();
+	</script>
+</body>
+</html>
