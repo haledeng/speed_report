@@ -30,16 +30,21 @@ var report_size = function(file){
 
 
 var tpl = {
-	amd: 'define(function(){\r\n{{content}};\r\nreturn SPEED_REPORT;\r\n})',
-	cmd: 'defind(function(require, exports, module){\r\n{{content}}\r\n;return SPEED_REPORT;\r\n})',
-	commonjs: '{{content}};\r\nreturn SPEED_REPORT;'
+	amd: 'define(function(){\r\n{{tab}}{{content}};\r\n{{tab}}module.exports = SPEED_REPORT;\r\n})',
+	cmd: 'defind(function(require, exports, module){\r\n{{tab}}{{content}};\r\n{{tab}}module.exports = SPEED_REPORT;\r\n})',
+	commonjs: '{{content}};\r\nmodule.exports = SPEED_REPORT;'
 };
 
+var tab = '    ';
 target.wrap = function(content) {
 	var loader = env['LOADER'] || '';
 	loader = loader.toLowerCase();
 	if (loader && tpl[loader]) {
-		content = tpl[loader].replace(/\{\{content\}\}/, content);
+		if (loader === 'amd' ||  loader === 'cmd') {
+			content = tpl[loader].replace(/\{\{content\}\}/, content.split(/\r\n|\n|\r/).join('\n' + '    ')).replace(/\{\{tab\}\}/g, tab);
+		} else {
+			content = tpl[loader].replace(/\{\{content\}\}/, content);
+		}
 	}
 	return content;
 };
