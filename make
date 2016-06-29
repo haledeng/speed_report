@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 require('shelljs/make');
 var fs = require('fs');
 
@@ -35,7 +36,7 @@ var tpl = {
 };
 
 target.wrap = function(content) {
-	var loader = env['loader'] || '';
+	var loader = env['LOADER'] || '';
 	loader = loader.toLowerCase();
 	if (loader && tpl[loader]) {
 		content = tpl[loader].replace(/\{\{content\}\}/, content);

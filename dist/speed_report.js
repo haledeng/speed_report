@@ -1,4 +1,4 @@
-defind(function(require, exports, module){
+define(function(){
 var SPEED_REPORT = (function(win) {
 	if (win.SPEED_REPORT) return win.SPEED_REPORT;
 
@@ -133,6 +133,6 @@ var SPEED_REPORT = (function(win) {
 
 	return report;
 })(window);
-
-;return SPEED_REPORT;
+;
+return SPEED_REPORT;
 })

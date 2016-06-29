@@ -30,11 +30,11 @@ build file with amd, cmd or commonjs loader.
 // on MacOS
 // replace amd with cmd or commonjs
 npm i
-loader='amd' npm run dist
+LOADER='amd' npm run dist
 
 // on windows
 npm i
-set loader=amd
+set LOADER=amd
 npm run dist
 ```
 
