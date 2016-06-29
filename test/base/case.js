@@ -10,7 +10,7 @@ describe('report base', function(){
 			cssStart: 2,
 			jsStart: 3
 		});
-		expect(url).to.equal('http://a.com?domStart=1&cssStart=2&jsStart=3');
+		expect(url.indexOf('http://a.com?domStart=1&cssStart=2&jsStart=3') > -1).to.equal(true);
 	});
 });
 
