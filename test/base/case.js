@@ -6,10 +6,12 @@ describe('report base', function(){
 		});
 
 		var url = SPEED_REPORT.report({
+			pageStart: 0,
 			domStart: 1,
 			cssStart: 2,
 			jsStart: 3
 		});
+		console.log(url);
 		expect(url.indexOf('http://a.com?domStart=1&cssStart=2&jsStart=3') > -1).to.equal(true);
 	});
 });
@@ -26,6 +28,6 @@ describe('report performance timing', function(){
 			cssStart: 2,
 			jsStart: 3
 		});
-		expect(url.indexOf('navigationStart=') > -1).to.equal(true);
+		expect(url.indexOf('fetchStart=') > -1).to.equal(true);
 	});
 });
