@@ -31,7 +31,7 @@ var report_size = function(file){
 
 var tpl = {
 	amd: 'define(function(){\r\n{{tab}}{{content}};\r\n{{tab}}module.exports = SPEED_REPORT;\r\n})',
-	cmd: 'defind(function(require, exports, module){\r\n{{tab}}{{content}};\r\n{{tab}}module.exports = SPEED_REPORT;\r\n})',
+	cmd: 'define(function(require, exports, module){\r\n{{tab}}{{content}};\r\n{{tab}}module.exports = SPEED_REPORT;\r\n})',
 	commonjs: '{{content}};\r\nmodule.exports = SPEED_REPORT;'
 };
 
