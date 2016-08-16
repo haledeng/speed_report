@@ -74,6 +74,7 @@ define(function(require, exports, module){
     
     	var filterTiming = function(timing) {
     		var props = [
+    			// base timeline
     			'navigationStart',
     			'unloadEventStart',
     			'unloadEventEnd',
@@ -106,6 +107,15 @@ define(function(require, exports, module){
     		return ret;
     	};
     
+    	var minusStart = function(speed, pageStart) {
+    		for (prop in speed) {
+    			if (speed.hasOwnProperty(prop)) {
+    				speed[prop] -= pageStart;
+    			}
+    		}
+    		return speed;
+    	};
+    
     	// initialize.
     	report.init = function(conf) {
     		defaultConf = extend(defaultConf, conf);
@@ -115,13 +125,31 @@ define(function(require, exports, module){
     	/**
     	 * [report description]
     	 * @param    {object}                 point [user define point]
+    	 * point like:
+    	 * {
+    	 *  	pageStart:
+    	 *  	domEnd:
+    	 *  	cssEnd:
+    	 *  	jsEnd: js loader end
+    	 *  	dataEnd: fetch data from cgi
+    	 *  	firstScreen: on mobile, first screen render end
+    	 *  	allEnd:
+    	 * }
     	 */
     	report.report = function(point) {
+    		// base timeline
+    		var pageStart = point.pageStart;
+    		delete point.pageStart;
+    		point = minusStart(point, pageStart);
+    
     		var timing = {};
     		if (defaultConf.includeTiming) {
     			timing = window.performance.timing || {};
     		}
     		timing = filterTiming(timing);
+    		var navigationStart = timing.navigationStart;
+    		delete timing.navigationStart;
+    		timing = minusStart(timing, navigationStart);
     		timing = extend(timing, point);
     		// prevent cache
     		timing._ = +new Date();
